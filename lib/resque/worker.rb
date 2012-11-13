@@ -623,6 +623,7 @@ module Resque
        output.split($/).each{|line|
         next unless line =~ /resque/i
         next if line =~ /resque-web/
+        next if line =~ /resque-scheduler/
         active_worker_pids.push line.split(' ')[0]
        }
        active_worker_pids
