@@ -579,6 +579,8 @@ module Resque
         solaris_worker_pids
       elsif RUBY_PLATFORM =~ /mingw32/
         windows_worker_pids
+      elsif RUBY_PLATFORM =~ /freebsd/
+        freebsd_worker_pids
       else
         linux_worker_pids
       end
@@ -596,6 +598,12 @@ module Resque
     #
     def linux_worker_pids
       get_worker_pids('ps -A -o pid,command')
+    end
+
+    # Find Resque worker pids on FreeBSD.
+    #
+    def freebsd_worker_pids
+      get_worker_pids('ps -x -o pid,command')
     end
 
     # Find Resque worker pids on Solaris.
